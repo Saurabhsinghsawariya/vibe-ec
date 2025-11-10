@@ -1,0 +1,21 @@
+node_modules
+
+# Build artifacts
+dist
+.output
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Vite
+.vite/
