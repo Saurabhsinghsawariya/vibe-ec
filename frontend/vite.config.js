@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://vibe-eccommerce-backend.onrender.com', // Your backend server
+        target: 'http://localhost:8000', // Your backend server
         changeOrigin: true,
         secure: false,
       }

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { createContext, useCallback, useContext, useState } from 'react';
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const CartContext = createContext();
 
 export const useCart = () => useContext(CartContext);
@@ -13,7 +15,7 @@ export const CartProvider = ({ children }) => {
   const fetchCart = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await axios.get('/api/cart');
+      const res = await axios.get(`${BASE_URL}/api/cart`);
       setCart(res.data);
       setError(null); // Clear error on successful fetch
     } catch (_) {
@@ -27,7 +29,7 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      await axios.post('/api/cart', { productId, qty });
+      await axios.post(`${BASE_URL}/api/cart`, { productId, qty });
       fetchCart(); // Refresh cart (will set loading to false)
     } catch (_) {
       setError('Failed to add item.');
@@ -39,7 +41,7 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      await axios.delete(`/api/cart/${itemId}`);
+      await axios.delete(`${BASE_URL}/api/cart/${itemId}`);
       fetchCart(); // Refresh cart (will set loading to false)
     } catch (_) {
       setError('Failed to remove item.');
@@ -51,7 +53,7 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.post('/api/checkout', { userDetails });
+      const res = await axios.post(`${BASE_URL}/api/checkout`, { userDetails });
       fetchCart(); // Clears cart (will set loading to false)
       return res.data; // Return the receipt
     } catch (_) {

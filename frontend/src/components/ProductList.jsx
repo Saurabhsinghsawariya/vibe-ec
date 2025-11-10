@@ -2,13 +2,15 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const { addToCart } = useCart();
 
   useEffect(() => {
     const getProducts = async () => {
-      const res = await axios.get('/api/products');
+      const res = await axios.get(`${BASE_URL}/api/products`);
       setProducts(res.data);
     };
     getProducts();
